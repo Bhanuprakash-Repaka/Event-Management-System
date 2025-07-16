@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice | Event Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+        }
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-box">
+        <table>
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Invoice #: </strong>{{ booking.id }}<br>
+                                <strong>Booking Date: </strong>{{ booking.booking_date }}<br>
+                                <strong>Booking Time: </strong>{{ booking.booking_time }}
+                            </td>
+                            <td>
+                                <strong>Event Management</strong><br>
+                                123 Event Street<br>
+                                City, State, ZIP<br>
+                                Email: support@eventmanagement.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Customer Details:</strong><br>
+                                {{ booking.user_name }}<br>
+                                {{ booking.user_email }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>Event Details</td>
+                <td>Amount</td>
+            </tr>
+            
+            <tr class="details">
+                <td>{{ booking.event_type }}</td>
+                <td>₹{{ booking.estimated_cost }}</td>
+            </tr>
+            
+            <tr class="heading">
+                <td>Deposit Paid</td>
+                <td>₹{{ booking.deposit_paid }}</td>
+            </tr>
+            
+            <tr class="heading">
+                <td>Total Amount Due</td>
+                <td>₹{{ booking.estimated_cost - booking.deposit_paid }}</td>
+            </tr>
+        </table>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('booking_history') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Bookings</a>
+            <a href="#" onclick="window.print()" class="btn btn-success"><i class="fas fa-print"></i> Print Invoice</a>
+        </div>
+    </div>
+</body>
+</html>
